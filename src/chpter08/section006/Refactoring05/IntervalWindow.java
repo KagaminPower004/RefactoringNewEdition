@@ -1,9 +1,14 @@
-package chpter08.section006.before;
+package chpter08.section006.Refactoring05;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.Observable;
+import java.util.Observer;
 
-public class IntervalWindow extends JFrame{
+public class IntervalWindow extends JFrame implements Observer {
     private JTextField _startField;
     private JTextField _endField;
     private JTextField _lengthField;
@@ -11,6 +16,7 @@ public class IntervalWindow extends JFrame{
     private JLabel _endLabel;
     private JLabel _lengthLabel;
     private JPanel _mainPanel;
+    private Interval _subject;
 
     public IntervalWindow() {
         //初期値の設定
@@ -69,6 +75,23 @@ public class IntervalWindow extends JFrame{
         });
         _startField.addFocusListener(new FocusAdapter() {
         });
+
+        _subject = new Interval();
+        _subject.addObserver(this);
+        update(_subject,null);
+
+    }
+
+    public void update(Observable observed, Object arg){
+
+        _endField.setText(_subject.getEnd()); //違いを比較したいので実装してみる(※StackOverflowErrorにならない)。
+    }
+
+    String getEnd(){
+        return _subject.getEnd();
+    }
+    void setEnd(String arg){
+        _subject.setEnd(arg);
     }
 
     public static void main(String[] args) {
@@ -113,8 +136,9 @@ public class IntervalWindow extends JFrame{
     }
 
     void EndField_FocusLost(FocusEvent event){
-        if(isNotInteger(_endField.getText())){
-            _endField.setText("0");
+        _endField.setText(_endField.getText());
+        if(isNotInteger(getEnd())){
+            setEnd("0");
         }
         calculateLength();
     }
@@ -141,7 +165,7 @@ public class IntervalWindow extends JFrame{
     void calculateLength(){
         try{
             int start = Integer.parseInt(_startField.getText());
-            int end = Integer.parseInt(_endField.getText());
+            int end = Integer.parseInt(getEnd());
             int length = end - start;
             _lengthField.setText(String.valueOf(length));
         }catch (NumberFormatException e){
@@ -154,7 +178,7 @@ public class IntervalWindow extends JFrame{
             int start = Integer.parseInt(_startField.getText());
             int length = Integer.parseInt(_lengthField.getText());
             int end = start + length;
-            _endField.setText(String.valueOf(end));
+            setEnd(String.valueOf(end));
         }catch (NumberFormatException e){
             throw new RuntimeException("予期しない数字形式のエラー");
         }
