@@ -83,9 +83,9 @@ public class IntervalWindow extends JFrame implements Observer {
     }
 
     public void update(Observable observed, Object arg) {
-        _endField.setText(_subject.getEnd());
-        _startField.setText(_subject.getStart());
-        _lengthField.setText(_subject.getLength());
+        _endField.setText(getEnd());
+        _startField.setText(getStart());
+        _lengthField.setText(getLength());
     }
 
     String getEnd() {
@@ -148,25 +148,13 @@ public class IntervalWindow extends JFrame implements Observer {
 
     void StartField_FocusLost(FocusEvent event) {
         setStart(_startField.getText());
-//        if(isNotInteger(getStart())){
-//            setStart("0");
-//        }
-//        _subject.calculateLength();
     }
 
     void EndField_FocusLost(FocusEvent event) {
         setEnd(_endField.getText());
-//        if(isNotInteger(getEnd())){
-//            setEnd("0");
-//        }
-//        _subject.calculateLength();
     }
 
     void LengthField_FocusLost(FocusEvent event) {
         setLength(_lengthField.getText());
-//        if(isNotInteger(getLength())){
-//            setLength("0");
-//        }
-//        _subject.calculateEnd();
     }
 }
