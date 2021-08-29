@@ -54,7 +54,7 @@ class Interval extends Observable {
             int end = start + length;
 
             // endの文字数を増やす場合、ゼロを右埋め
-            // ALL0なら先頭に1をつける
+            // ALL0なら_startと同じ内容にする
             if( _end.length() < end ) {
                 // %   ・・・書式文字列であることを表す指示子
                 // -end・・・桁数(マイナスなので右埋め)
