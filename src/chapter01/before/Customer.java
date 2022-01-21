@@ -29,17 +29,17 @@ public class Customer {
             //1行ごとに金額を計算
             switch(each.getMovie().getPriceCode()) {
             case Movie.REGULAR:
-            thisAmount +=2;
-            if(each.getDaysRented() > 2)
-            thisAmount += (each.getDaysRented() - 2) * 1.5;
+                thisAmount +=2;
+                if(each.getDaysRented() > 2)
+                thisAmount += (each.getDaysRented() - 2) * 1.5;
             break;
             case Movie.NEW_RELEASE:
-            thisAmount += each.getDaysRented() * 3;
+                thisAmount += each.getDaysRented() * 3;
             break;
             case Movie.CHILDRENS:
-            thisAmount += 1.5;
-            if(each.getDaysRented() > 3)
-            thisAmount += (each.getDaysRented() - 3) * 1.5;
+                thisAmount += 1.5;
+                if(each.getDaysRented() > 3)
+                thisAmount += (each.getDaysRented() - 3) * 1.5;
             break;
             }
             
@@ -47,7 +47,7 @@ public class Customer {
             frequentRenterPoints ++;
             //新作を二日以上借りた場合はボーナスポイント
             if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-            && each.getDaysRented() > 1) frequentRenterPoints ++;
+                && each.getDaysRented() > 1) frequentRenterPoints ++;
             
             //この貸し出しに関する数値の表示
             result += "\t" + each.getMovie().getTitle() + "\t" +
